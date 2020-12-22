@@ -15,6 +15,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+/**
+ * The type Book repository test.
+ */
 @DataJpaTest
 @Sql(scripts = "/insert_book.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -23,6 +26,9 @@ class BookRepositoryTest {
     @Autowired
     private BookRepository repository;
 
+    /**
+     * Find all.
+     */
     @Test
     void findAll() {
         List<Book> list = repository.findAll();
@@ -30,18 +36,27 @@ class BookRepositoryTest {
         assertThat(list).isNotEmpty();
     }
 
+    /**
+     * Find by isbn.
+     */
     @Test
     void findByISBN() {
         Book obj = repository.findByISBN("1111111111111").orElse(null);
         assertThat(obj).isNotNull();
     }
 
+    /**
+     * Find by id.
+     */
     @Test
     void findById() {
         Book obj = repository.findById(1L).orElse(null);
         assertThat(obj).isNotNull();
     }
 
+    /**
+     * Save.
+     */
     @Test
     void save() {
         Book obj = repository.findById(1L).orElse(null);
@@ -51,6 +66,9 @@ class BookRepositoryTest {
         assertThat(obj1).isNotNull();
     }
 
+    /**
+     * Delete by id.
+     */
     @Test
     void deleteById() {
         repository.deleteById(1L);

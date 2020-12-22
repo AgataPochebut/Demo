@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The type Publisher controller.
+ */
 @RestController
 @RequestMapping("/publishers")
 public class PublisherController {
@@ -29,6 +32,12 @@ public class PublisherController {
     @Autowired
     private Mapper mapper;
 
+    /**
+     * Get response entity.
+     *
+     * @param requestDto the request dto
+     * @return the response entity
+     */
     @GetMapping
     public ResponseEntity<List<PublisherResponseDto>> get(@Valid PublisherGetRequestDto requestDto) {
         final List<Publisher> entity = repositoryService.findAll(requestDto);
@@ -38,6 +47,12 @@ public class PublisherController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    /**
+     * Get response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @GetMapping(value = "/{id}")
     public ResponseEntity<PublisherResponseDto> get(@PathVariable Long id) {
         if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
@@ -46,6 +61,13 @@ public class PublisherController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    /**
+     * Save response entity.
+     *
+     * @param requestDto the request dto
+     * @return the response entity
+     * @throws Exception the exception
+     */
     @PostMapping
     public ResponseEntity<Long> save(@Valid @RequestBody PublisherRequestDto requestDto) throws Exception {
         Publisher entity = mapper.map(requestDto, Publisher.class);
@@ -53,6 +75,13 @@ public class PublisherController {
         return new ResponseEntity<>(entity.getId(), HttpStatus.OK);
     }
 
+    /**
+     * Update.
+     *
+     * @param id         the id
+     * @param requestDto the request dto
+     * @throws Exception the exception
+     */
     @PutMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@PathVariable Long id, @Valid @RequestBody PublisherRequestDto requestDto) throws Exception {
@@ -62,6 +91,11 @@ public class PublisherController {
         repositoryService.update(entity);
     }
 
+    /**
+     * Delete.
+     *
+     * @param id the id
+     */
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {

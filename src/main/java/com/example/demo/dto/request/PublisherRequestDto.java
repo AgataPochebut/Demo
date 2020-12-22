@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+/**
+ * The type Publisher request dto.
+ */
 @Data
 @NoArgsConstructor
 public class PublisherRequestDto {

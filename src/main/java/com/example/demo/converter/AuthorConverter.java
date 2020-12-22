@@ -13,6 +13,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The type Author converter.
+ */
 @Service
 @Transactional
 public
@@ -21,6 +24,12 @@ class AuthorConverter implements CustomConverter {
     private static AuthorRepositoryService repositoryService;
     private static Mapper mapper;
 
+    /**
+     * Instantiates a new Author converter.
+     *
+     * @param repositoryService the repository service
+     * @param mapper            the mapper
+     */
     @Autowired
     public AuthorConverter(AuthorRepositoryService repositoryService, Mapper mapper) {
         AuthorConverter.repositoryService = repositoryService;

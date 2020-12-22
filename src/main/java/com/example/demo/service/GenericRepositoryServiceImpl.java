@@ -7,6 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * The type Generic repository service.
+ *
+ * @param <T> the type parameter
+ * @param <U> the type parameter
+ */
 @Service
 @Transactional
 public abstract class GenericRepositoryServiceImpl<T, U> implements GenericRepositoryService<T, U> {

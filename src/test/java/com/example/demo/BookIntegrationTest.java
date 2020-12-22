@@ -27,6 +27,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * The type Book integration test.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @Sql(scripts = "/insert_book.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -45,6 +48,11 @@ class BookIntegrationTest {
     @Autowired
     private BookRepositoryService repositoryService;
 
+    /**
+     * Gets all.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getAll() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/books"))
@@ -59,6 +67,11 @@ class BookIntegrationTest {
         }
     }
 
+    /**
+     * Gets by fields.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getByFields() throws Exception {
         MultiValueMap map = new LinkedMultiValueMap<String, String>();
@@ -74,6 +87,11 @@ class BookIntegrationTest {
         assertThat(list.size()).isEqualTo(1);
     }
 
+    /**
+     * Gets by id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getById() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/books/{id}", 1L))
@@ -84,6 +102,11 @@ class BookIntegrationTest {
         assertThat(dto).isEqualTo(mapper.map(repositoryService.findById(1L), BookResponseDto.class));
     }
 
+    /**
+     * Save.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void save() throws Exception {
         BookRequestDto dto = new BookRequestDto();
@@ -102,6 +125,11 @@ class BookIntegrationTest {
         assertThat(obj.getAuthor().getId()).isEqualTo(dto.getAuthor());
     }
 
+    /**
+     * Update.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void update() throws Exception {
         BookRequestDto dto = new BookRequestDto();
@@ -119,6 +147,11 @@ class BookIntegrationTest {
         assertThat(obj.getAuthor().getId()).isEqualTo(dto.getAuthor());
     }
 
+    /**
+     * Delete by id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void deleteById() throws Exception {
         this.mockMvc.perform(delete("/books/{id}", 1L))
@@ -127,6 +160,11 @@ class BookIntegrationTest {
         assertThat(repositoryService.existById(1L)).isFalse();
     }
 
+    /**
+     * Gets by id return not found.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getByIdReturnNotFound() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/books/{id}", 10L))
@@ -137,6 +175,11 @@ class BookIntegrationTest {
         assertThat(dto.getHttpStatus()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Save return bad request.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void saveReturnBadRequest() throws Exception {
         BookRequestDto requestDto = new BookRequestDto();

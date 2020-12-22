@@ -12,6 +12,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The type Book converter.
+ */
 @Service
 @Transactional
 public
@@ -20,6 +23,12 @@ class BookConverter implements CustomConverter {
     private static BookRepositoryService repositoryService;
     private static Mapper mapper;
 
+    /**
+     * Instantiates a new Book converter.
+     *
+     * @param repositoryService the repository service
+     * @param mapper            the mapper
+     */
     @Autowired
     public BookConverter(BookRepositoryService repositoryService, Mapper mapper) {
         BookConverter.repositoryService = repositoryService;

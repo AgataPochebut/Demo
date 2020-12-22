@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The type Book controller.
+ */
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -29,6 +32,12 @@ public class BookController {
     @Autowired
     private Mapper mapper;
 
+    /**
+     * Get response entity.
+     *
+     * @param requestDto the request dto
+     * @return the response entity
+     */
     @GetMapping
     public ResponseEntity<List<BookResponseDto>> get(@Valid BookGetRequestDto requestDto) {
         final List<Book> entity = repositoryService.findAll(requestDto);
@@ -38,6 +47,12 @@ public class BookController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    /**
+     * Get response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @GetMapping(value = "/{id}")
     public ResponseEntity<BookResponseDto> get(@PathVariable Long id) {
         if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
@@ -46,6 +61,13 @@ public class BookController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    /**
+     * Save response entity.
+     *
+     * @param requestDto the request dto
+     * @return the response entity
+     * @throws Exception the exception
+     */
     @PostMapping
     public ResponseEntity<Long> save(@Valid @RequestBody BookRequestDto requestDto) throws Exception {
         Book entity = mapper.map(requestDto, Book.class);
@@ -53,6 +75,13 @@ public class BookController {
         return new ResponseEntity<>(entity.getId(), HttpStatus.OK);
     }
 
+    /**
+     * Update.
+     *
+     * @param id         the id
+     * @param requestDto the request dto
+     * @throws Exception the exception
+     */
     @PutMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@PathVariable Long id, @Valid @RequestBody BookRequestDto requestDto) throws Exception {
@@ -61,6 +90,11 @@ public class BookController {
         repositoryService.update(entity);
     }
 
+    /**
+     * Delete.
+     *
+     * @param id the id
+     */
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {

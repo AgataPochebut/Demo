@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
+/**
+ * The type Publisher response dto.
+ */
 @Data
 @NoArgsConstructor
 public class PublisherResponseDto {

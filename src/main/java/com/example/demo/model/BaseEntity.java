@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
+/**
+ * The type Base entity.
+ */
 @NoArgsConstructor
 @Data
 @MappedSuperclass

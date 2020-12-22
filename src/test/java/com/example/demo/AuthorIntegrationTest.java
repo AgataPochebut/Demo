@@ -28,6 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * The type Author integration test.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @Sql(scripts = "/insert_author.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -46,6 +49,11 @@ class AuthorIntegrationTest {
     @Autowired
     private AuthorRepositoryService repositoryService;
 
+    /**
+     * Gets all.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getAll() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/authors"))
@@ -60,6 +68,11 @@ class AuthorIntegrationTest {
         }
     }
 
+    /**
+     * Gets by fields.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getByFields() throws Exception {
         MultiValueMap map = new LinkedMultiValueMap<String, String>();
@@ -74,6 +87,11 @@ class AuthorIntegrationTest {
         assertThat(list.size()).isEqualTo(1);
     }
 
+    /**
+     * Gets by id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getById() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/authors/{id}", 1L))
@@ -84,6 +102,11 @@ class AuthorIntegrationTest {
         assertThat(dto).isEqualTo(mapper.map(repositoryService.findById(1L), AuthorResponseDto.class));
     }
 
+    /**
+     * Save.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void save() throws Exception {
         AuthorRequestDto dto = new AuthorRequestDto();
@@ -100,6 +123,11 @@ class AuthorIntegrationTest {
         assertThat(obj.getName()).isEqualTo(dto.getName());
     }
 
+    /**
+     * Update.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void update() throws Exception {
         AuthorRequestDto dto = new AuthorRequestDto();
@@ -115,6 +143,11 @@ class AuthorIntegrationTest {
         assertThat(obj.getName()).isEqualTo(dto.getName());
     }
 
+    /**
+     * Delete by id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void deleteById() throws Exception {
         this.mockMvc.perform(delete("/authors/{id}", 1L))
@@ -123,6 +156,11 @@ class AuthorIntegrationTest {
         assertThat(repositoryService.existById(1L)).isFalse();
     }
 
+    /**
+     * Gets by id return not found.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getByIdReturnNotFound() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/authors/{id}", 10L))
@@ -133,6 +171,11 @@ class AuthorIntegrationTest {
         assertThat(dto.getHttpStatus()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Save return bad request.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void saveReturnBadRequest() throws Exception {
         AuthorRequestDto requestDto = new AuthorRequestDto();

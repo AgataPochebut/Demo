@@ -16,6 +16,9 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import java.util.List;
 
+/**
+ * The type Book repository service.
+ */
 @Service
 @Transactional
 public class BookRepositoryServiceImpl extends GenericRepositoryServiceImpl<Book, Long> implements BookRepositoryService {

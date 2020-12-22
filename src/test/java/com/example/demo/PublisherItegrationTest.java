@@ -25,6 +25,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * The type Publisher itegration test.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @Sql(scripts = "/insert_publisher.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -43,6 +46,11 @@ class PublisherItegrationTest {
     @Autowired
     private Mapper mapper;
 
+    /**
+     * Gets all.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getAll() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/publishers"))
@@ -57,6 +65,11 @@ class PublisherItegrationTest {
         }
     }
 
+    /**
+     * Gets by fields.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getByFields() throws Exception {
         MultiValueMap map = new LinkedMultiValueMap<String, String>();
@@ -72,6 +85,11 @@ class PublisherItegrationTest {
         assertThat(list.size()).isEqualTo(1);
     }
 
+    /**
+     * Gets by id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void getById() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/publishers/{id}", 1L))
@@ -82,6 +100,11 @@ class PublisherItegrationTest {
         assertThat(dto).isEqualTo(mapper.map(repositoryService.findById(1L), PublisherResponseDto.class));
     }
 
+    /**
+     * Save.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void save() throws Exception {
         PublisherRequestDto dto = new PublisherRequestDto();
@@ -100,6 +123,11 @@ class PublisherItegrationTest {
         assertThat(obj.getAuthor().getId()).isEqualTo(dto.getAuthor());
     }
 
+    /**
+     * Delete by id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void deleteById() throws Exception {
         this.mockMvc.perform(delete("/publishers/{id}", 1L))

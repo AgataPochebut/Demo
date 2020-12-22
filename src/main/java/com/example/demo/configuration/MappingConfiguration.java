@@ -20,9 +20,17 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
+/**
+ * The type Mapping configuration.
+ */
 @Configuration
 public class MappingConfiguration {
 
+    /**
+     * Mapper mapper.
+     *
+     * @return the mapper
+     */
     @Bean
     public Mapper mapper() {
 

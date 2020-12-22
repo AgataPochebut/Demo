@@ -16,6 +16,9 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
+/**
+ * The type Rest exception handler.
+ */
 @ControllerAdvice(annotations = RestController.class)
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -36,6 +39,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(responseDTO);
     }
 
+    /**
+     * Handle response entity.
+     *
+     * @param exception the exception
+     * @return the response entity
+     */
     @ExceptionHandler(value = {ConstraintViolationException.class})
     protected ResponseEntity<Object> handle(ConstraintViolationException exception) {
         String errorMessage = exception.getConstraintViolations().stream()
@@ -49,6 +58,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(responseDTO);
     }
 
+    /**
+     * Handle response entity.
+     *
+     * @param exception the exception
+     * @return the response entity
+     */
     @ExceptionHandler(value = {EntityNotFoundException.class})
     protected ResponseEntity<Object> handle(EntityNotFoundException exception) {
         String errorMessage = exception.getMessage();
@@ -60,6 +75,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(responseDTO);
     }
 
+    /**
+     * Handle response entity.
+     *
+     * @param exception the exception
+     * @return the response entity
+     */
     @ExceptionHandler(value = {EntityExistsException.class})
     protected ResponseEntity<Object> handle(EntityExistsException exception) {
         String errorMessage = exception.getMessage();
@@ -71,6 +92,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(responseDTO);
     }
 
+    /**
+     * Handle response entity.
+     *
+     * @param exception the exception
+     * @return the response entity
+     */
     @ExceptionHandler(value = {Exception.class})
     protected ResponseEntity<Object> handle(Exception exception) {
         String errorMessage = exception.getMessage();
@@ -82,6 +109,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(responseDTO);
     }
 
+    /**
+     * Handle response entity.
+     *
+     * @param exception the exception
+     * @return the response entity
+     */
     @ExceptionHandler(value = {RuntimeException.class})
     protected ResponseEntity<Object> handle(RuntimeException exception) {
         String errorMessage = exception.getMessage();

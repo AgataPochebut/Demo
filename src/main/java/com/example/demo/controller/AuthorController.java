@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import javax.validation.constraints.Size;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The type Author controller.
+ */
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
@@ -29,6 +29,12 @@ public class AuthorController {
     @Autowired
     private Mapper mapper;
 
+    /**
+     * Get response entity.
+     *
+     * @param requestDto the request dto
+     * @return the response entity
+     */
     @GetMapping
     public ResponseEntity<List<AuthorResponseDto>> get(@Valid AuthorGetRequestDto requestDto) {
         final List<Author> list = repositoryService.findAll(requestDto);
@@ -38,6 +44,12 @@ public class AuthorController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    /**
+     * Get response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @GetMapping(value = "/{id}")
     public ResponseEntity<AuthorResponseDto> get(@PathVariable Long id) {
         if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
@@ -46,6 +58,13 @@ public class AuthorController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    /**
+     * Save response entity.
+     *
+     * @param requestDto the request dto
+     * @return the response entity
+     * @throws Exception the exception
+     */
     @PostMapping
     public ResponseEntity<Long> save(@Valid @RequestBody AuthorRequestDto requestDto) throws Exception {
         Author entity = mapper.map(requestDto, Author.class);
@@ -53,6 +72,13 @@ public class AuthorController {
         return new ResponseEntity<>(entity.getId(), HttpStatus.OK);
     }
 
+    /**
+     * Update.
+     *
+     * @param id         the id
+     * @param requestDto the request dto
+     * @throws Exception the exception
+     */
     @PutMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@PathVariable Long id, @Valid @RequestBody AuthorRequestDto requestDto) throws Exception {
@@ -61,6 +87,11 @@ public class AuthorController {
         repositoryService.update(entity);
     }
 
+    /**
+     * Delete.
+     *
+     * @param id the id
+     */
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {

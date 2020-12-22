@@ -12,6 +12,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+/**
+ * The type Publisher repository test.
+ */
 @DataJpaTest
 @Sql(scripts = "/insert_publisher.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -20,6 +23,9 @@ class PublisherRepositoryTest {
     @Autowired
     private PublisherRepository repository;
 
+    /**
+     * Find all.
+     */
     @Test
     void findAll() {
         List<Publisher> list = repository.findAll();
@@ -27,12 +33,20 @@ class PublisherRepositoryTest {
         assertThat(list).isNotEmpty();
     }
 
+    /**
+     * Find by id.
+     */
     @Test
     void findById() {
         Publisher obj = repository.findById(1L).orElse(null);
         assertThat(obj).isNotNull();
     }
 
+    /**
+     * Save.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void save() throws Exception {
         Publisher obj = repository.findById(1L).orElse(null);
@@ -42,6 +56,9 @@ class PublisherRepositoryTest {
         assertThat(obj1).isNotNull();
     }
 
+    /**
+     * Delete by id.
+     */
     @Test
     void deleteById() {
         repository.deleteById(1L);

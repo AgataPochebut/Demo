@@ -14,6 +14,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+/**
+ * The type Author repository test.
+ */
 @DataJpaTest
 @Sql(scripts = "/insert_author.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -22,11 +25,17 @@ class AuthorRepositoryTest {
     @Autowired
     private AuthorRepository repository;
 
+    /**
+     * Injected components are not null.
+     */
     @Test
     void injectedComponentsAreNotNull(){
         assertThat(repository).isNotNull();
     }
 
+    /**
+     * Find all.
+     */
     @Test
     void findAll() {
         List<Author> list = repository.findAll();
@@ -34,18 +43,29 @@ class AuthorRepositoryTest {
         assertThat(list).isNotEmpty();
     }
 
+    /**
+     * Find by name.
+     */
     @Test
     void findByName() {
         Author obj = repository.findByName("tolstoy").orElse(null);
         assertThat(obj).isNotNull();
     }
 
+    /**
+     * Find by id.
+     */
     @Test
     void findById() {
         Author obj = repository.findById(1L).orElse(null);
         assertThat(obj).isNotNull();
     }
 
+    /**
+     * Save.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void save() throws Exception {
         Author obj = new Author();
@@ -56,6 +76,9 @@ class AuthorRepositoryTest {
         assertThat(obj1).isNotNull();
     }
 
+    /**
+     * Delete by id.
+     */
     @Test
     void deleteById() {
         repository.deleteById(1L);
@@ -63,6 +86,11 @@ class AuthorRepositoryTest {
         assertThat(obj).isNull();
     }
 
+    /**
+     * Save return name not unique.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void saveReturnNameNotUnique() throws Exception {
         Author obj = new Author();
@@ -71,6 +99,11 @@ class AuthorRepositoryTest {
                 .isThrownBy(() -> repository.save(obj));
     }
 
+    /**
+     * Save return name not null.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void saveReturnNameNotNull() throws Exception {
         Author obj = new Author();
@@ -79,6 +112,11 @@ class AuthorRepositoryTest {
                 .isThrownBy(() -> repository.save(obj));
     }
 
+    /**
+     * Save return name not empty.
+     *
+     * @throws Exception the exception
+     */
     @Test
     void saveReturnNameNotEmpty() throws Exception {
         Author obj = new Author();

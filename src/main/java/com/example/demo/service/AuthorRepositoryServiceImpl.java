@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The type Author repository service.
+ */
 @Service
 @Transactional
 public class AuthorRepositoryServiceImpl extends GenericRepositoryServiceImpl<Author, Long> implements AuthorRepositoryService {
