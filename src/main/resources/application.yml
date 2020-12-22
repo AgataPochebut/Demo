@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: prod
+
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/demo?createDatabaseIfNotExist=true&useUnicode=true&serverTimezone=UTC}
+    username: root
+    password: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false
+    hibernate.ddl-auto: update

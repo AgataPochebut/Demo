@@ -1,0 +1,25 @@
+version: '2'
+
+volumes:
+  mysql-data:
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  demo:
+    build: /
+    environment:
+      DATASOURCE_URL: jdbc:mysql://mysql:3306/demo?createDatabaseIfNotExist=true&useUnicode=true&serverTimezone=UTC
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - mysql
+    entrypoint: ["java", "-jar","app.jar"]
