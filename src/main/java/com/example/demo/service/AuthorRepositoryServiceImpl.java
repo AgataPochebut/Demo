@@ -59,7 +59,6 @@ public class AuthorRepositoryServiceImpl extends GenericRepositoryServiceImpl<Au
 
     @Override
     public Author update(Author entity) throws Exception {
-        if(!existById(entity.getId())) throw new EntityNotFoundException("Entity with this id not exist");
         Author exist = findByName(entity.getName());
         if(exist!=null && exist.getId()!=entity.getId()) throw new EntityExistsException("Entity with this name already exist");
         return super.save(entity);

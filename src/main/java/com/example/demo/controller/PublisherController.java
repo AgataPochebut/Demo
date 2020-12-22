@@ -55,7 +55,6 @@ public class PublisherController {
      */
     @GetMapping(value = "/{id}")
     public ResponseEntity<PublisherResponseDto> get(@PathVariable Long id) {
-        if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
         Publisher entity = repositoryService.findById(id);
         final PublisherResponseDto responseDto = mapper.map(entity, PublisherResponseDto.class);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -85,7 +84,6 @@ public class PublisherController {
     @PutMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@PathVariable Long id, @Valid @RequestBody PublisherRequestDto requestDto) throws Exception {
-        if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
         Publisher entity = mapper.map(requestDto, Publisher.class);
         entity.setId(id);
         repositoryService.update(entity);
@@ -99,7 +97,6 @@ public class PublisherController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {
-        if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
         repositoryService.deleteById(id);
     }
 

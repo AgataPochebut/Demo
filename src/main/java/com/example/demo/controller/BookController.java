@@ -55,7 +55,6 @@ public class BookController {
      */
     @GetMapping(value = "/{id}")
     public ResponseEntity<BookResponseDto> get(@PathVariable Long id) {
-        if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
         Book entity = repositoryService.findById(id);
         final BookResponseDto responseDto = mapper.map(entity, BookResponseDto.class);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -98,7 +97,6 @@ public class BookController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {
-        if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
         repositoryService.deleteById(id);
     }
 

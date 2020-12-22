@@ -52,7 +52,6 @@ public class AuthorController {
      */
     @GetMapping(value = "/{id}")
     public ResponseEntity<AuthorResponseDto> get(@PathVariable Long id) {
-        if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
         Author entity = repositoryService.findById(id);
         final AuthorResponseDto responseDto = mapper.map(entity, AuthorResponseDto.class);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -95,7 +94,6 @@ public class AuthorController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {
-        if(!repositoryService.existById(id)) throw new EntityNotFoundException("Entity with this id not exist");
         repositoryService.deleteById(id);
     }
 }

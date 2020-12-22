@@ -1,10 +1,12 @@
 package com.example.demo.service;
 
+import com.example.demo.model.BaseEntity;
 import com.example.demo.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public abstract class GenericRepositoryServiceImpl<T, U> implements GenericRepositoryService<T, U> {
+public abstract class GenericRepositoryServiceImpl<T extends BaseEntity, U> implements GenericRepositoryService<T, U> {
 
     @Autowired
     private GenericRepository<T, U> repository;
@@ -27,7 +29,7 @@ public abstract class GenericRepositoryServiceImpl<T, U> implements GenericRepos
 
     @Override
     public T findById(U id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity with this id not exist"));
     }
 
     @Override
@@ -37,6 +39,7 @@ public abstract class GenericRepositoryServiceImpl<T, U> implements GenericRepos
 
     @Override
     public T update(T entity) throws Exception {
+        if(!existById((U) entity.getId())) throw new EntityNotFoundException("Entity with this id not exist");
         return repository.save(entity);
     }
 

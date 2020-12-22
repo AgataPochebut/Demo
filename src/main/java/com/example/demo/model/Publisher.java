@@ -17,12 +17,12 @@ import javax.validation.constraints.NotNull;
 @Table(name="PUBLISHERS")
 public class Publisher extends BaseEntity {
 
-    @NotNull
+    @NotNull(message = "Book must not be null")
     @OneToOne
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
-    @NotNull
+    @NotNull(message = "Author must not be null")
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;

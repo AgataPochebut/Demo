@@ -23,7 +23,7 @@ public class Book extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String ISBN;
 
-    @NotNull
+    @NotNull(message = "Author must not be null")
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;
